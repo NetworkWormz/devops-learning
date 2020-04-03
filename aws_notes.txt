@@ -1,0 +1,104 @@
+Simple Storage Service
+====
+Block Storage
+======
+>Block Storage is suitable for trannsactional databses,random read/write loads,and structured database storage
+>Block storage divides the data to be stored in evenly sized blocks(data chunks),for instance,a file can be split into evenly sized blocks before it is stored.
+>Data blocks stored in block storage would not contain metadata(date created,date modified,content type...etc)
+>Block Storage only keeps the address(index) where the data blocks are stored,it does not care what is in that block,just how to retrieve it when required.
+Object Storage
+=====
+>Object Storage stores the file as a whole and does not divide them.
+>In Object storage,AN Object is:
+    - The file.data itself
+	- its metadata (date created,modified,securitu attributes,content type...etc)
+	- Object Global Unique ID
+>Since Object Storage stores the object(file),its metadatd a,its global unique id all together
+    - it is ideally suited  for Distributed Storage Architectures
+	- this means it can scale easily using cheaper hardware (compared to block storage) by just adding additional storage units.
+	
+>in Object Storage there is no limit on the type or amount of  metadata in an object
+>Examples of Object Storage Solutions:
+     - AWS S3,Dropbox,Facebook(images/videos),Spotify
+	 
+>Object Storage can guarantee high avilability and durability
+     - data copies are stored on multiple,geographically distributed locations
+	 - Object Storage cannot be mounted as a drive,or directory,directly to an EC2 instance
+     - Object Storage is a perfect solution for data growth  storage problems
+	 
+Simple Storage Service (S3):
+======
+>S3 is a Storage for the Internet.It has a Simple web services interface for simple storing & retrieval of any amount of data,anytime,from anywhere on the internet.
+>S3 is object-based storage,and NOT a block storage
+>S3 has a distributed data-store architecture,where objects are redundantly stored in multiple locations
+>Data is Stored in Buckets:
+    - A bucket can be viewed as a container for objects
+    - A bucket is a flat container of objects
+         . It does not provide any hierarchy of objects
+		 . You can use Object key(name) to mimic folders in a bucket when using the AWS console
+    - You can store unlimited objects in your bucket,but an Object can Not exceed 5 TB	
+	- You cannot create nested buckets (a bucket inside another)
+	- Bucket ownership is not transferrable
+	- An S3 bucket is region specific.
+>Amazon S3 supports various options for you to configure the bucket
+    - Amazon S3 supports sub-resources for you to store,and manage the bucket configuration information
+>By default,a bucket,its objects,and related sub-resources are all private
+
+S3 Buckets Sub-Resources:
+===
+Sub-Resources (Configuration containers) for S3 buckets include:
+       - Lifecycle : To decide on Object's lifecycle Management
+	   - Website : to hold configurations related to static website hosted in S3 bucket
+	   - Versioning: keep objects versions as it changes(gets updated)
+	   - Access Control Lists(ACLs)
+	   - Bucket Policies
+	   
+S3 Objects:
+=====
+>An Object size stored in an S3 bucket can be zero bytes(0 bytes) upto 5 TB
+>Each object is stored and retrieved by a unique key(ID or Name)
+>An object in AWS S3 is uniquely indentified and addressed through:
+      -Service endpoint
+	  -bucket name
+	  -Object key (name)
+	  -Optionally Object version
+>objects Stored in a S3 bucket in a Region will never leave that region unless you specifically move them to another region,or enable Cross Region Replication
+>S3 provide high data durability,objects are redundantly stored on multiple devices across multiple facilities in an Amazon S3 region (where the bucket exixts)
+
+S3 Access Policies:
+====
+>Access Policies describes who has access to what
+     - You can associate an Access policy with :
+	       . A resource (bucket and object)
+		   . Or a User
+		   
+>We can categorize the avialable Amazon S3 access policies as follows:
+      -Resource baed policies: This include Bucket policies and Access Control list(ACLs)
+	  
+	  -User policies
+	     - User policies support granting permission for all Amazon S3 operations
+		 - The user policies are for managing permissions for users in your account
+		 - If the AWS account that owns the object wants to grant permission to a user in its account,it can use a user policy.
+	  
+> If an AWS account that owns a bucket wants to grant permission to users in its account,it can use either a bucket policy or a user policy.
+> If the AWS account that owns the object also owns the bucket,then	it can write a bucket policy to manage the object permissions
+> For Cross account permissions,when you use to provide another account full S3 permissions,you can only do that via bucket policies
+
+S3 Bucket Versioning:
+===========
+>Bucket Versioning is a S3 bucket sub-resource used to protect against accidental object/data deletion or overwrites
+>Versioning can also be used for data retention and archive
+>Once you enable Versioning on a bucket,it cannot be disabled,however it can be suspended.
+>When versioning is enabled,and you try to delete an object
+      - you can still view the object and the delete marker
+>You will be charged for all S3 storage costs for all object verions stored
+      - you can use veriosning with S3 lifecycle policies to delete older versions,OR,you can move them to a cheaper S3 Storage(or Glacier)	  
+	  
+>Bucket Versioning states:
+         .Enabled
+		 .Suspended
+		 .un-versioned
+>Versioning applies to all objects in a bucket and not partially applied
+>Objects existing before enabling versioning will have a Verion ID of Null
+
+	

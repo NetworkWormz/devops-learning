@@ -1,0 +1,24 @@
+Docker commands
+==
+> docker pull centos
+> docker run -d -t --name myfirstdockerimage centos
+> docker ps
+> docker exec -it myfirstdockerimage bash
+> docker exec -it myfirstdockerimage sh
+> docker stats
+>
+
+
+
+===
+Git commands
+====
+> git init
+> git status
+> git add .
+> git commit -m "this is my first git commit"
+> git config --global user.email "email address"
+> git remote add origin "url of the git hub repository.git"
+> git remote set-url origin "https://github.com/NetworkWormz/devops-learning.git"   to set url if repository already exists
+> git push origin master
+> 
